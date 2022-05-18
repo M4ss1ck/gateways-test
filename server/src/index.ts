@@ -1,11 +1,16 @@
 import express from "express";
+import bodyParser from "body-parser";
 import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
+
 const app = express();
+
+app.use(bodyParser.json({ type: "application/json" }));
 
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "*");
   next();
 });
 
@@ -29,17 +34,17 @@ app.get("/gateways/:id", async (req, res) => {
 });
 
 app.post("/post", async (req, res) => {
-  console.log("POST /post");
-  const { name, ip } = req.body;
-  const post = await prisma.gateway
-    .create({
-      data: {
-        name: name,
-        ip: ip,
-      },
-    })
-    .catch((e) => console.log(e));
-  res.json(post);
+  console.log("Got body: ", req.body);
+  // const { name, ip } = JSON.parse(req.body);
+  // const post = await prisma.gateway
+  //   .create({
+  //     data: {
+  //       name: name,
+  //       ip: ip,
+  //     },
+  //   })
+  //   .catch((e) => console.log(e));
+  // res.json(post);
 });
 
 app.put("/gateway/:id", async (req, res) => {
