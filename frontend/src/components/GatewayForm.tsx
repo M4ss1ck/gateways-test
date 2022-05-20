@@ -26,11 +26,11 @@ const GatewayForm = () => {
       },
       body: body,
     };
-    console.log(options);
     const response = await fetch(url, options);
     const result = await response.json();
     setData(result);
-    //console.log(data);
+    setIp("");
+    setName("");
   };
 
   const handleNewPeripheral = () => {
