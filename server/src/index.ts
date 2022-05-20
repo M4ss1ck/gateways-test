@@ -14,8 +14,8 @@ app.use((req, res, next) => {
   next();
 });
 
-app.get("/gateways", async (req, res) => {
-  console.log("GET /gateways");
+app.get("/gateway/list", async (req, res) => {
+  console.log("GET /gateway/list");
   const gates = await prisma.gateway.findMany({
     include: { peripherals: true },
   });
@@ -23,7 +23,7 @@ app.get("/gateways", async (req, res) => {
   res.json(gates);
 });
 
-app.get("/gateways/:id", async (req, res) => {
+app.get("/gateway/:id", async (req, res) => {
   const { id } = req.params;
   const gates = await prisma.gateway.findUnique({
     where: { id: id },
@@ -33,18 +33,18 @@ app.get("/gateways/:id", async (req, res) => {
   res.json(gates);
 });
 
-app.post("/post", async (req, res) => {
-  console.log("Got body: ", req.body);
-  // const { name, ip } = JSON.parse(req.body);
-  // const post = await prisma.gateway
-  //   .create({
-  //     data: {
-  //       name: name,
-  //       ip: ip,
-  //     },
-  //   })
-  //   .catch((e) => console.log(e));
-  // res.json(post);
+app.post("/gateway/new", async (req, res) => {
+  // console.log("Got body: ", req.body);
+  const { name, ip } = req.body;
+  const post = await prisma.gateway
+    .create({
+      data: {
+        name: name,
+        ip: ip,
+      },
+    })
+    .catch((e) => console.log(e));
+  res.json(post);
 });
 
 app.put("/gateway/:id", async (req, res) => {

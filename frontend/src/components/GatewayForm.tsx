@@ -7,14 +7,18 @@ const GatewayForm = () => {
   const [ip, setIp] = useState("");
   const handleNewGateway = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const response = await fetch("http://localhost:3001/post", {
+    const url = "http://localhost:3001/gateway/new";
+    const body = JSON.stringify({ name: name, ip: ip });
+    const options = {
       method: "POST",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json;charset=UTF-8",
       },
-      body: JSON.stringify({ name: name, ip: ip }),
-    });
+      body: body,
+    };
+    console.log(options);
+    const response = await fetch(url, options);
     const data = await response.json();
     console.log(data);
   };

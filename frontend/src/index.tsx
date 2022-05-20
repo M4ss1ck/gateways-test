@@ -8,7 +8,7 @@ const App = () => {
   const [gateways, setGateways] = useState<Gateway[]>();
 
   const getGateways = async () => {
-    const response = await fetch("http://localhost:3001/gateways");
+    const response = await fetch("http://localhost:3001/gateway/list");
     console.log(response);
     const gateways = await response.json();
     console.log("got: ", gateways);
