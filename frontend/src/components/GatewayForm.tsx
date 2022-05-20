@@ -5,6 +5,8 @@ const GatewayForm = () => {
   const [showNew, setShowNew] = useState(false);
   const [name, setName] = useState("");
   const [ip, setIp] = useState("");
+  const [data, setData] = useState<any>({});
+
   const handleNewGateway = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const url = "http://localhost:3001/gateway/new";
@@ -19,9 +21,11 @@ const GatewayForm = () => {
     };
     console.log(options);
     const response = await fetch(url, options);
-    const data = await response.json();
-    console.log(data);
+    const result = await response.json();
+    setData(result);
+    //console.log(data);
   };
+
   return !showNew ? (
     <button
       className="p-2 my-2 border border-black rounded-lg"
@@ -62,6 +66,7 @@ const GatewayForm = () => {
       <button type="submit" className="p-2 border border-black rounded-lg">
         Submit
       </button>
+      {data.error && <p>{data.error}</p>}
     </form>
   );
 };

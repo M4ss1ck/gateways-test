@@ -36,21 +36,30 @@ app.get("/gateway/:id", async (req, res) => {
 app.post("/gateway/new", async (req, res) => {
   // console.log("Got body: ", req.body);
   const { name, ip } = req.body;
-  const post = await prisma.gateway
-    .create({
-      data: {
-        name: name,
-        ip: ip,
-      },
-    })
-    .catch((e) => console.log(e));
-  res.json(post);
+  if (
+    ip &&
+    ip.match(
+      /^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/
+    )
+  ) {
+    const post = await prisma.gateway
+      .create({
+        data: {
+          name: name,
+          ip: ip,
+        },
+      })
+      .catch((e) => console.log(e));
+    res.json(post);
+  } else {
+    const error = { error: "Invalid IP address" };
+    res.json(error);
+  }
 });
 
 app.put("/gateway/:id", async (req, res) => {
   const { id } = req.params;
   const { name, ip } = req.body;
-  // TODO validate ip with regex
   const post = await prisma.gateway.update({
     where: { id: id },
     data: {},
