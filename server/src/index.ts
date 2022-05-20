@@ -25,16 +25,16 @@ app.get("/gateway/list", async (req, res) => {
 
 app.get("/gateway/:id", async (req, res) => {
   const { id } = req.params;
-  const gates = await prisma.gateway.findUnique({
-    where: { id: id },
-    include: { peripherals: true },
-  });
-  console.log(gates);
+  const gates = await prisma.gateway
+    .findUnique({
+      where: { id: id },
+      include: { peripherals: true },
+    })
+    .catch((e) => console.error(e));
   res.json(gates);
 });
 
 app.post("/gateway/new", async (req, res) => {
-  // console.log("Got body: ", req.body);
   const { name, ip, peripherals } = req.body;
   if (
     ip &&

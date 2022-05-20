@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { createRoot } from "react-dom/client";
 import GatewayForm from "./components/GatewayForm";
+import GatewayButton from "./components/GatewayButton";
 import "./input.css";
 
 const App = () => {
@@ -37,25 +38,13 @@ const App = () => {
           <span className="w-1/4 text-center">IP</span>
           <span className="w-1/4 text-center">Peripherals</span>
         </li>
-        <hr />
+        <hr className="bg-black" />
         {gateways &&
           (Object.keys(gateways).length === 0 ? (
             <p>No results</p>
           ) : (
             Object.entries(gateways).map(([name, gateway]) => (
-              <li
-                key={gateway.id}
-                className="flex flex-row items-center justify-evenly"
-              >
-                <span className="w-1/4 text-center overflow-clip">
-                  {gateway.id}
-                </span>
-                <span className="w-1/4 text-center">{gateway.name}</span>
-                <span className="w-1/4 text-center">{gateway.ip}</span>
-                <span className="w-1/4 text-center">
-                  {gateway.peripherals ? gateway.peripherals.length : 0}
-                </span>
-              </li>
+              <GatewayButton gateway={gateway} key={gateway.id} />
             ))
           ))}
         <GatewayForm />
