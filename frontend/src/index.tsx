@@ -7,6 +7,12 @@ const App = () => {
   //const year = new Date().getFullYear();
   const [gateways, setGateways] = useState<Gateway[]>();
 
+  useEffect(() => {
+    fetch("http://localhost:3001/gateway/list")
+      .then((response) => response.json())
+      .then((data) => setGateways(data));
+  }, []);
+
   const getGateways = async () => {
     const response = await fetch("http://localhost:3001/gateway/list");
     console.log(response);
@@ -22,21 +28,38 @@ const App = () => {
         onClick={getGateways}
         className="p-2 mx-auto border border-black rounded-lg"
       >
-        Get all
+        Refresh list
       </button>
-      {gateways &&
-        (Object.keys(gateways).length === 0 ? (
-          <p>No results</p>
-        ) : (
-          <ul>
-            {Object.entries(gateways).map(([name, gateway]) => (
-              <li key={gateway.name}>
-                {gateway.name} {gateway.ip}
+      <ul className="w-full">
+        <li className="flex flex-row items-center font-bold justify-evenly">
+          <span className="w-1/4 text-center">ID</span>
+          <span className="w-1/4 text-center">Name</span>
+          <span className="w-1/4 text-center">IP</span>
+          <span className="w-1/4 text-center">Peripherals</span>
+        </li>
+        <hr />
+        {gateways &&
+          (Object.keys(gateways).length === 0 ? (
+            <p>No results</p>
+          ) : (
+            Object.entries(gateways).map(([name, gateway]) => (
+              <li
+                key={gateway.id}
+                className="flex flex-row items-center justify-evenly"
+              >
+                <span className="w-1/4 text-center overflow-clip">
+                  {gateway.id}
+                </span>
+                <span className="w-1/4 text-center">{gateway.name}</span>
+                <span className="w-1/4 text-center">{gateway.ip}</span>
+                <span className="w-1/4 text-center">
+                  {gateway.periphericals ? gateway.periphericals.length : 0}
+                </span>
               </li>
-            ))}
-          </ul>
-        ))}
-      <GatewayForm />
+            ))
+          ))}
+        <GatewayForm />
+      </ul>
     </main>
   );
 };

@@ -3,16 +3,10 @@ import React, { useState } from "react";
 const PeripheralForm = () => {
   const [uid, setUid] = useState("");
   const [vendor, setVendor] = useState("");
-  const [newDevice, setNewDevice] = useState(false);
 
-  return newDevice ? (
-    <div className="relative flex flex-col items-center justify-center p-2 m-2 text-center border border-black rounded-lg">
-      <button
-        className="absolute top-0 right-0 px-2 text-xl font-extrabold text-red-800 translate-x-1/2 -translate-y-1/2 bg-white border border-red-800 rounded-full"
-        onClick={() => setNewDevice(!newDevice)}
-      >
-        X
-      </button>
+  return (
+    <div className="flex flex-row items-center w-full p-2 my-2 text-center border border-black rounded-lg justify-evenly">
+      <h3>Add peripheral device</h3>
       <input
         id="uid"
         type="number"
@@ -51,13 +45,6 @@ const PeripheralForm = () => {
         Add
       </button>
     </div>
-  ) : (
-    <button
-      className="p-2 my-2 border border-black rounded-lg"
-      onClick={() => setNewDevice(!newDevice)}
-    >
-      Add device
-    </button>
   );
 };
 

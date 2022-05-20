@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import PeripheralForm from "./PeripheralForm";
 
 const GatewayForm = () => {
-  const [showNew, setShowNew] = useState(false);
+  // const [showNew, setShowNew] = useState(false);
+  const [newDevice, setNewDevice] = useState(false);
   const [name, setName] = useState("");
   const [ip, setIp] = useState("");
   const [data, setData] = useState<any>({});
@@ -26,48 +27,43 @@ const GatewayForm = () => {
     //console.log(data);
   };
 
-  return !showNew ? (
-    <button
-      className="p-2 my-2 border border-black rounded-lg"
-      onClick={() => setShowNew(!showNew)}
-    >
-      Add new gateway
-    </button>
-  ) : (
-    <form
-      className="relative flex flex-col items-center justify-center py-2 my-2 text-center border border-black rounded-lg"
-      onSubmit={handleNewGateway}
-    >
-      <button
-        className="absolute top-0 right-0 px-2 text-xl font-extrabold text-red-800 translate-x-1/2 -translate-y-1/2 bg-white border border-red-800 rounded-full"
-        onClick={() => setShowNew(!showNew)}
+  return (
+    <>
+      <form
+        className="relative flex flex-row items-center py-2 my-2 text-center border border-black rounded-lg justify-evenly"
+        onSubmit={handleNewGateway}
       >
-        X
-      </button>
-      <input
-        id="name"
-        type="text"
-        placeholder="Name"
-        className="px-1 my-4 text-center"
-        onChange={(e) => setName(e.target.value)}
-        value={name}
-      />
-      <input
-        id="ip"
-        type="text"
-        placeholder="IP"
-        className="px-1 my-4 text-center"
-        onChange={(e) => setIp(e.target.value)}
-        value={ip}
-      />
-      <label>Peripheral Devices</label>
-      <PeripheralForm />
-
-      <button type="submit" className="p-2 border border-black rounded-lg">
-        Submit
-      </button>
+        <h2>Add new gateway</h2>
+        <input
+          id="name"
+          type="text"
+          placeholder="Name"
+          className="px-1 my-4 text-center"
+          onChange={(e) => setName(e.target.value)}
+          value={name}
+        />
+        <input
+          id="ip"
+          type="text"
+          placeholder="IP"
+          className="px-1 my-4 text-center"
+          onChange={(e) => setIp(e.target.value)}
+          value={ip}
+        />
+        <button
+          type="button"
+          className="p-2 my-2 border border-black rounded-lg"
+          onClick={() => setNewDevice(!newDevice)}
+        >
+          Add device
+        </button>
+        <button type="submit" className="p-2 border border-black rounded-lg">
+          Submit
+        </button>
+      </form>
       {data.error && <p>{data.error}</p>}
-    </form>
+      {newDevice && <PeripheralForm />}
+    </>
   );
 };
 
