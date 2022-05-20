@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Card from "./Card";
 
 const GatewayButton: React.FC<{ gateway: Gateway }> = ({ gateway }) => {
   const [showDetails, setShowDetails] = useState(false);
@@ -24,7 +25,17 @@ const GatewayButton: React.FC<{ gateway: Gateway }> = ({ gateway }) => {
           {gateway.peripherals ? gateway.peripherals.length : 0}
         </span>
       </li>
-      {showDetails && <p>{JSON.stringify(details)}</p>}
+      {showDetails && Object.keys(details).length > 0 && (
+        <div className="flex flex-row flex-wrap w-full">
+          {Object.entries(details).map(([name, value]) => {
+            return (
+              name !== "peripherals" && (
+                <Card key={name} name={name} data={value as string} />
+              )
+            );
+          })}
+        </div>
+      )}
     </>
   );
 };
