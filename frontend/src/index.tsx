@@ -53,7 +53,7 @@ const App = () => {
                 <span className="w-1/4 text-center">{gateway.name}</span>
                 <span className="w-1/4 text-center">{gateway.ip}</span>
                 <span className="w-1/4 text-center">
-                  {gateway.periphericals ? gateway.periphericals.length : 0}
+                  {gateway.peripherals ? gateway.peripherals.length : 0}
                 </span>
               </li>
             ))

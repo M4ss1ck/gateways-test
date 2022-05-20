@@ -2,7 +2,7 @@ interface Gateway {
   id?: string;
   name: string;
   ip: string;
-  periphericals?: Peripheral[];
+  peripherals?: Peripheral[];
 }
 
 interface Peripheral {
