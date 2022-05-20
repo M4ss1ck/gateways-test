@@ -1,6 +1,6 @@
 import express from "express";
 import bodyParser from "body-parser";
-import { PrismaClient } from "@prisma/client";
+import { Peripheral, PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
@@ -35,21 +35,42 @@ app.get("/gateway/:id", async (req, res) => {
 
 app.post("/gateway/new", async (req, res) => {
   // console.log("Got body: ", req.body);
-  const { name, ip } = req.body;
+  const { name, ip, peripherals } = req.body;
   if (
     ip &&
     ip.match(
       /^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/
     )
   ) {
-    const post = await prisma.gateway
-      .create({
-        data: {
-          name: name,
-          ip: ip,
-        },
-      })
-      .catch((e) => console.log(e));
+    const post =
+      peripherals?.length > 0
+        ? await prisma.gateway
+            .create({
+              data: {
+                name: name,
+                ip: ip,
+                peripherals: {
+                  create: peripherals.map((peripheral: Peripheral) => {
+                    return {
+                      uid: peripheral.uid,
+                      vendor: peripheral.vendor,
+                      status: peripheral.status,
+                      dateCreated: peripheral.dateCreated,
+                    };
+                  }),
+                },
+              },
+              include: { peripherals: true },
+            })
+            .catch((e) => console.log(e))
+        : await prisma.gateway
+            .create({
+              data: {
+                name: name,
+                ip: ip,
+              },
+            })
+            .catch((e) => console.log(e));
     res.json(post);
   } else {
     const error = { error: "Invalid IP address" };

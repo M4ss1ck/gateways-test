@@ -1,12 +1,12 @@
 interface Gateway {
-  id: string;
+  id?: string;
   name: string;
   ip: string;
   periphericals?: Peripheral[];
 }
 
 interface Peripheral {
-  id: string;
+  id?: string;
   uid: number;
   vendor: string;
   dateCreated: Date;
