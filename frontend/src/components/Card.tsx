@@ -5,10 +5,9 @@ const Card: React.FC<{ data: string | number; name: string }> = ({
   name,
 }) => {
   return (
-    <div className="flex flex-col items-center justify-center p-2 m-2 border border-black rounded-lg">
-      <h3 className="text-center">{data}</h3>
-      <hr />
-      <small className="text-center">{name}</small>
+    <div className="flex flex-row items-center justify-center px-2">
+      <small className="text-center">{name}:</small>{" "}
+      <h3 className="mx-2 text-center">{data}</h3>
     </div>
   );
 };
