@@ -82,7 +82,6 @@ app.post("/gateway/new", async (req, res) => {
 });
 
 app.post("/device/new", async (req, res) => {
-  //const { id } = req.params;
   const { uid, vendor, dateCreated, status, id } = req.body;
   const gateway = await prisma.peripheral.create({
     data: {
