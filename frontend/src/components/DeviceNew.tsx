@@ -7,6 +7,7 @@ const DeviceNew: React.FC<{
   const [uid, setUid] = useState("");
   const [vendor, setVendor] = useState("");
   const [status, setStatus] = useState<"online" | "offline">("offline");
+
   const handleNewPeripheral = () => {
     const parsedUid = parseInt(uid);
     const date = new Date();

@@ -40,8 +40,8 @@ const GatewayButton: React.FC<{ gateway: Gateway }> = ({ gateway }) => {
                   )
                 );
               })}
-              {gateway.peripherals ? (
-                <DeviceList peripherals={gateway.peripherals} />
+              {gateway.peripherals && gateway.id ? (
+                <DeviceList peripherals={gateway.peripherals} id={gateway.id} />
               ) : null}
             </li>
           </>

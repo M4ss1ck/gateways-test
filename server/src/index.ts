@@ -81,23 +81,30 @@ app.post("/gateway/new", async (req, res) => {
   }
 });
 
-app.put("/gateway/:id", async (req, res) => {
-  const { id } = req.params;
-  const { name, ip } = req.body;
-  const post = await prisma.gateway.update({
-    where: { id: id },
-    data: {},
+app.post("/device/new", async (req, res) => {
+  //const { id } = req.params;
+  const { uid, vendor, dateCreated, status, id } = req.body;
+  const gateway = await prisma.peripheral.create({
+    data: {
+      uid: uid,
+      vendor: vendor,
+      dateCreated: dateCreated,
+      status: status,
+      gateway: { connect: { id: id } },
+    },
   });
-  res.json(post);
+  res.json(gateway);
 });
 
 app.delete("/device/:id", async (req, res) => {
   const { id } = req.params;
-  const peripherals = await prisma.peripheral.delete({
-    where: {
-      id: id,
-    },
-  });
+  const peripherals = await prisma.peripheral
+    .delete({
+      where: {
+        id: id,
+      },
+    })
+    .catch((e) => console.log(e));
   res.json(peripherals);
 });
 
