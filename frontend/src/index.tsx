@@ -24,7 +24,9 @@ const App = () => {
 
   return (
     <main className="container flex flex-col items-center justify-start min-h-screen max-w-prose bg-dark text-light">
-      <h1 className="mt-8 text-xl font-bold text-primary">Gateways</h1>
+      <h1 className="mt-8 text-xl font-bold text-primary">Add gateway</h1>
+      <GatewayForm />
+      <h1 className="mt-8 text-xl font-bold text-primary">List</h1>
       <p>Touch boxes to show more info. "X" button to go back</p>
       <ul className="flex flex-col items-center justify-start w-full my-2">
         {gateways &&
@@ -42,7 +44,6 @@ const App = () => {
           Refresh list
         </button>
       </ul>
-      <GatewayForm />
     </main>
   );
 };
