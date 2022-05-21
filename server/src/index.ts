@@ -11,6 +11,7 @@ app.use(bodyParser.json({ type: "application/json" }));
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "*");
+  res.header("Access-Control-Allow-Methods", "*");
   next();
 });
 
@@ -43,7 +44,7 @@ app.post("/gateway/new", async (req, res) => {
     )
   ) {
     const post =
-      peripherals?.length > 0
+      peripherals?.length > 0 && peripherals.length <= 10
         ? await prisma.gateway
             .create({
               data: {
@@ -63,14 +64,16 @@ app.post("/gateway/new", async (req, res) => {
               include: { peripherals: true },
             })
             .catch((e) => console.log(e))
-        : await prisma.gateway
+        : peripherals.length <= 10
+        ? await prisma.gateway
             .create({
               data: {
                 name: name,
                 ip: ip,
               },
             })
-            .catch((e) => console.log(e));
+            .catch((e) => console.log(e))
+        : { error: "Too many peripheral devices" };
     res.json(post);
   } else {
     const error = { error: "Invalid IP address" };
@@ -90,12 +93,12 @@ app.put("/gateway/:id", async (req, res) => {
 
 app.delete("/device/:id", async (req, res) => {
   const { id } = req.params;
-  const user = await prisma.peripheral.delete({
+  const peripherals = await prisma.peripheral.delete({
     where: {
       id,
     },
   });
-  res.json(user);
+  res.json(peripherals);
 });
 
 app.listen(3001);
