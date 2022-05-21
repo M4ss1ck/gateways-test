@@ -51,15 +51,14 @@ const GatewayForm = () => {
   return (
     <>
       <form
-        className="relative flex flex-row items-center py-2 my-2 text-center border border-black rounded-lg justify-evenly"
+        className="relative flex flex-col items-center py-2 my-2 text-center border rounded-lg border-warning justify-evenly"
         onSubmit={handleNewGateway}
       >
-        <h2>Add new gateway</h2>
         <input
           id="name"
           type="text"
           placeholder="Name"
-          className="px-1 my-4 text-center"
+          className="px-1 mx-4 text-center border-b bg-dark border-b-warning"
           onChange={(e) => setName(e.target.value)}
           value={name}
         />
@@ -67,22 +66,25 @@ const GatewayForm = () => {
           id="ip"
           type="text"
           placeholder="IP"
-          className="px-1 my-4 text-center"
+          className="px-1 my-4 text-center border-b bg-dark border-b-warning"
           onChange={(e) => setIp(e.target.value)}
           value={ip}
         />
         <button
           type="button"
-          className="p-2 my-2 border border-black rounded-lg"
+          className="p-2 my-2 border rounded-lg border-warning hover:bg-warning hover:text-primary"
           onClick={() => setNewDevice(!newDevice)}
         >
           Add device
         </button>
-        <button type="submit" className="p-2 border border-black rounded-lg">
+        <button
+          type="submit"
+          className="p-2 border rounded-lg border-warning hover:bg-warning hover:text-primary"
+        >
           Submit
         </button>
       </form>
-      {data.error && <p>{data.error}</p>}
+      {data.error && <p className="text-alert">{data.error}</p>}
       {peripherals.length > 0 && (
         <ol className="text-center">
           <li>Peripheral list:</li>
@@ -94,13 +96,13 @@ const GatewayForm = () => {
         </ol>
       )}
       {newDevice && (
-        <div className="flex flex-row items-center w-full p-2 my-2 text-center border border-black rounded-lg justify-evenly">
+        <div className="flex flex-col items-center p-2 my-2 text-center border border-black rounded-lg justify-evenly">
           <h3>Add peripheral device</h3>
           <input
             id="uid"
             type="number"
             placeholder="UID"
-            className="px-1 my-4 text-center"
+            className="px-1 my-4 text-center border-b bg-dark border-b-warning"
             onChange={(e) => setUid(e.target.value)}
             value={uid}
           />
@@ -108,7 +110,7 @@ const GatewayForm = () => {
             id="vendor"
             type="text"
             placeholder="Vendor"
-            className="px-1 my-4 text-center"
+            className="px-1 my-4 text-center border-b bg-dark border-b-warning"
             onChange={(e) => setVendor(e.target.value)}
             value={vendor}
           />
@@ -138,7 +140,7 @@ const GatewayForm = () => {
           </span>
           <button
             type="button"
-            className="p-2 border border-black rounded-lg"
+            className="p-2 border rounded-lg border-warning hover:bg-warning hover:text-primary"
             onClick={handleNewPeripheral}
           >
             Add

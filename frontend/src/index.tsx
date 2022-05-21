@@ -23,16 +23,9 @@ const App = () => {
   };
 
   return (
-    <main className="container flex flex-col items-center justify-start min-h-screen">
-      <h1 className="mt-8 text-xl font-bold">Gateways</h1>
-      <ul className="flex flex-row flex-wrap items-center justify-start w-full">
-        {/* <li className="flex flex-row items-center font-bold justify-evenly">
-          <span className="w-1/4 text-center">ID</span>
-          <span className="w-1/4 text-center">Name</span>
-          <span className="w-1/4 text-center">IP</span>
-          <span className="w-1/4 text-center">Peripherals</span>
-          </li>
-        <hr className="bg-black" /> */}
+    <main className="container flex flex-col items-center justify-start min-h-screen bg-dark text-light">
+      <h1 className="mt-8 text-xl font-bold text-primary">Gateways</h1>
+      <ul className="flex flex-col items-center justify-start w-full">
         {gateways &&
           (Object.keys(gateways).length === 0 ? (
             <p>No results</p>
