@@ -25,8 +25,8 @@ const App = () => {
   return (
     <main className="container flex flex-col items-center justify-start min-h-screen max-w-prose bg-dark text-light">
       <h1 className="mt-8 text-xl font-bold text-primary">Gateways</h1>
-      <p>Touch boxes to show/hide more info</p>
-      <ul className="flex flex-col items-center justify-start w-full">
+      <p>Touch boxes to show more info. "X" button to go back</p>
+      <ul className="flex flex-col items-center justify-start w-full my-2">
         {gateways &&
           (Object.keys(gateways).length === 0 ? (
             <p>No results</p>

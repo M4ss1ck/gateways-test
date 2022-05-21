@@ -95,7 +95,7 @@ app.delete("/device/:id", async (req, res) => {
   const { id } = req.params;
   const peripherals = await prisma.peripheral.delete({
     where: {
-      id,
+      id: id,
     },
   });
   res.json(peripherals);

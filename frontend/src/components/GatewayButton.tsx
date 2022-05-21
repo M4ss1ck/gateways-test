@@ -26,10 +26,13 @@ const GatewayButton: React.FC<{ gateway: Gateway }> = ({ gateway }) => {
       ) : (
         Object.keys(details).length > 0 && (
           <>
-            <li
-              className="flex flex-col items-start m-2 border rounded-lg border-warning"
-              onClick={() => setShowDetails(false)}
-            >
+            <li className="relative flex flex-col items-start m-2 border rounded-lg border-warning">
+              <button
+                onClick={() => setShowDetails(false)}
+                className="absolute top-0 right-0 px-2 translate-x-1/2 -translate-y-1/2 border rounded-md border-alert text-alert hover:text-light hover:bg-alert bg-dark"
+              >
+                X
+              </button>
               {Object.entries(details).map(([name, value]) => {
                 return (
                   name !== "peripherals" && (
@@ -37,12 +40,10 @@ const GatewayButton: React.FC<{ gateway: Gateway }> = ({ gateway }) => {
                   )
                 );
               })}
-            </li>
-            {gateway.peripherals && gateway.peripherals.length > 0 ? (
-              <li>
+              {gateway.peripherals ? (
                 <DeviceList peripherals={gateway.peripherals} />
-              </li>
-            ) : null}
+              ) : null}
+            </li>
           </>
         )
       )}
