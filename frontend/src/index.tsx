@@ -23,8 +23,9 @@ const App = () => {
   };
 
   return (
-    <main className="container flex flex-col items-center justify-start min-h-screen bg-dark text-light">
+    <main className="container flex flex-col items-center justify-start min-h-screen max-w-prose bg-dark text-light">
       <h1 className="mt-8 text-xl font-bold text-primary">Gateways</h1>
+      <p>Touch boxes to show/hide more info</p>
       <ul className="flex flex-col items-center justify-start w-full">
         {gateways &&
           (Object.keys(gateways).length === 0 ? (
@@ -36,7 +37,7 @@ const App = () => {
           ))}
         <button
           onClick={getGateways}
-          className="p-2 mx-auto border border-black rounded-lg"
+          className="p-2 mx-auto border rounded-lg border-warning hover:bg-warning hover:text-primary"
         >
           Refresh list
         </button>
@@ -47,5 +48,5 @@ const App = () => {
 };
 
 const domContainer = document.getElementById("react-code");
-const root = createRoot(domContainer!); // createRoot(container!) if you use TypeScript
+const root = createRoot(domContainer!);
 root.render(<App />);

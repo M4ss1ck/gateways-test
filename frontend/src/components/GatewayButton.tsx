@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import Card from "./Card";
+import DeviceList from "./DeviceList";
 
 const GatewayButton: React.FC<{ gateway: Gateway }> = ({ gateway }) => {
   const [showDetails, setShowDetails] = useState(false);
   const [details, setDetails] = useState<Gateway | {}>({});
+
   const gatewayDetails = async (id: string) => {
     setShowDetails(true);
     const url = `http://localhost:3001/gateway/${id}`;
@@ -16,30 +18,32 @@ const GatewayButton: React.FC<{ gateway: Gateway }> = ({ gateway }) => {
     <>
       {!showDetails ? (
         <li
-          className="flex flex-col items-center justify-center p-2 m-auto my-2 border border-black rounded-lg cursor-pointer"
+          className="flex flex-col items-center justify-center p-2 m-auto my-2 border rounded-lg cursor-pointer border-warning"
           onClick={() => (gateway.id ? gatewayDetails(gateway.id) : null)}
         >
-          {/* <span className="text-center overflow-clip">ID: {gateway.id}</span> */}
-          <span className="text-center">Name: {gateway.name}</span>
-          <span className="text-center">IP: {gateway.ip}</span>
-          {/* <span className="text-center">
-            {gateway.peripherals ? gateway.peripherals.length : 0}
-          </span> */}
+          <span className="text-center">{gateway.name}</span>
         </li>
       ) : (
         Object.keys(details).length > 0 && (
-          <div className="flex flex-col m-2 border border-black rounded-lg">
-            {Object.entries(details).map(([name, value]) => {
-              return name !== "peripherals" ? (
-                <Card key={name} name={name} data={value as string} />
-              ) : (
-                <div key={name} className="w-full text-center">
-                  <h3>Peripheral devices</h3>
-                  <Card key={name} name={name} data={JSON.stringify(value)} />
-                </div>
-              );
-            })}
-          </div>
+          <>
+            <li
+              className="flex flex-col items-start m-2 border rounded-lg border-warning"
+              onClick={() => setShowDetails(false)}
+            >
+              {Object.entries(details).map(([name, value]) => {
+                return (
+                  name !== "peripherals" && (
+                    <Card key={name} name={name} data={value as string} />
+                  )
+                );
+              })}
+            </li>
+            {gateway.peripherals && gateway.peripherals.length > 0 ? (
+              <li>
+                <DeviceList peripherals={gateway.peripherals} />
+              </li>
+            ) : null}
+          </>
         )
       )}
     </>

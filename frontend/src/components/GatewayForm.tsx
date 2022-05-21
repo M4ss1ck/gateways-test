@@ -96,7 +96,7 @@ const GatewayForm = () => {
         </ol>
       )}
       {newDevice && (
-        <div className="flex flex-col items-center p-2 my-2 text-center border border-black rounded-lg justify-evenly">
+        <div className="flex flex-col items-center p-2 my-2 text-center border rounded-lg border-warning justify-evenly">
           <h3>Add peripheral device</h3>
           <input
             id="uid"
