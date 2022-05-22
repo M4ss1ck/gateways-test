@@ -16,11 +16,10 @@ app.use((req, res, next) => {
 });
 
 app.get("/gateway/list", async (req, res) => {
-  const gates = await prisma.gateway.findMany({
+  const gateways = await prisma.gateway.findMany({
     include: { peripherals: true },
   });
-  console.log(gates);
-  res.json(gates);
+  res.json(gateways);
 });
 
 app.get("/gateway/:id", async (req, res) => {

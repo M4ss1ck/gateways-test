@@ -5,7 +5,6 @@ import GatewayButton from "./components/GatewayButton";
 import "./input.css";
 
 const App = () => {
-  //const year = new Date().getFullYear();
   const [gateways, setGateways] = useState<Gateway[]>();
 
   useEffect(() => {
@@ -16,9 +15,7 @@ const App = () => {
 
   const getGateways = async () => {
     const response = await fetch("http://localhost:3001/gateway/list");
-    console.log(response);
     const gateways = await response.json();
-    console.log("got: ", gateways);
     setGateways(gateways);
   };
 

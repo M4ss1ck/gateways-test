@@ -48,7 +48,6 @@ const DeviceList: React.FC<{ peripherals: Peripheral[]; id: string }> = ({
       status: status,
       dateCreated: date,
     } as Peripheral;
-    console.log("agregando nuevo dispositivo");
     setUid("");
     setVendor("");
     setStatus("offline");
