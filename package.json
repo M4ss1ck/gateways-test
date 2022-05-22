@@ -6,7 +6,10 @@
   "scripts": {
     "frontend": "cd frontend && pnpm dev",
     "backend": "cd server && pnpm dev",
-    "dev": "concurrently \"pnpm backend\" \"pnpm frontend\""
+    "prepare": "cd server && pnpm i && cd ../frontend && pnpm i && cd ../",
+    "dev": "concurrently \"pnpm backend\" \"pnpm frontend\"",
+    "build": "concurrently \"cd server && pnpm build\" \"cd frontend && pnpm build\"",
+    "start": "concurrently \"cd server && pnpm start\" \"cd frontend && pnpm preview\""
   },
   "keywords": [],
   "author": "Massick",
