@@ -41,7 +41,7 @@ app.post("/gateway/new", async (req, res) => {
       /^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/
     )
   ) {
-    const post =
+    const gateways =
       peripherals?.length > 0 && peripherals.length <= 10
         ? await prisma.gateway
             .create({
@@ -49,12 +49,15 @@ app.post("/gateway/new", async (req, res) => {
                 name: name,
                 ip: ip,
                 peripherals: {
-                  create: peripherals.map((peripheral: Peripheral) => {
+                  connectOrCreate: peripherals.map((peripheral: Peripheral) => {
                     return {
-                      uid: peripheral.uid,
-                      vendor: peripheral.vendor,
-                      status: peripheral.status,
-                      dateCreated: peripheral.dateCreated,
+                      where: { uid: peripheral.uid },
+                      create: {
+                        uid: peripheral.uid,
+                        vendor: peripheral.vendor,
+                        status: peripheral.status,
+                        dateCreated: peripheral.dateCreated,
+                      },
                     };
                   }),
                 },
@@ -72,7 +75,7 @@ app.post("/gateway/new", async (req, res) => {
             })
             .catch((e) => console.log(e))
         : { error: "Too many peripheral devices" };
-    res.json(post);
+    res.json(gateways);
   } else {
     const error = { error: "Invalid IP address" };
     res.json(error);
