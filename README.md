@@ -2,11 +2,17 @@
 
 Sample project for managing gateways and their devices.
 
-It counts with two projects: a server and a frontend, each one on a folder with that name.
+It counts with two projects: a server and a frontend (`./server/` and `./frontend/` directories respectively).
+
+> **Note:** I used `pnpm`, but you can replace it for any other package manager if you do the appropriate changes in the scripts.
+
+The backend uses a MongoDB database (in my case, hosted on MongoDB Atlas) and [Prisma](https://www.prisma.io/) as the ORM, so it needs a `DATABASE_URL` environment variable. Rename the `./server/.env.sample` file to `./server/.env` and set the `DATABASE_URL` environment variable.
+
+Then, you need to install the project, run `pnpm i`. In order to install all the dependencies across both projects, you can now run `pnpm prepare`. After that, you can use `pnpm dev` for development or `pnpm build` and `pnpm start` for production.
 
 # REST API
 
-It was created using Node.js, Express.js, Prisma and a MongoDB Atlas database.
+It was created using Node.js, Express.js, Prisma and a MongoDB database.
 
 ## Endpoints
 
