@@ -2,9 +2,9 @@ import express from "express";
 import bodyParser from "body-parser";
 import { Peripheral, PrismaClient } from "@prisma/client";
 
-const prisma = new PrismaClient();
+export const prisma = new PrismaClient();
 
-const app = express();
+export const app = express();
 
 app.use(bodyParser.json({ type: "application/json" }));
 
