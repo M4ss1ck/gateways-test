@@ -16,7 +16,6 @@ app.use((req, res, next) => {
 });
 
 app.get("/gateway/list", async (req, res) => {
-  console.log("GET /gateway/list");
   const gates = await prisma.gateway.findMany({
     include: { peripherals: true },
   });
@@ -83,16 +82,26 @@ app.post("/gateway/new", async (req, res) => {
 
 app.post("/device/new", async (req, res) => {
   const { uid, vendor, dateCreated, status, id } = req.body;
-  const gateway = await prisma.peripheral.create({
-    data: {
-      uid: uid,
-      vendor: vendor,
-      dateCreated: dateCreated,
-      status: status,
-      gateway: { connect: { id: id } },
+  const count = await prisma.peripheral.count({
+    where: {
+      gatewayId: id,
     },
   });
-  res.json(gateway);
+  if (count < 10) {
+    const gateway = await prisma.peripheral.create({
+      data: {
+        uid: uid,
+        vendor: vendor,
+        dateCreated: dateCreated,
+        status: status,
+        gateway: { connect: { id: id } },
+      },
+    });
+    res.json(gateway);
+  } else {
+    const error = { error: "Too many peripheral devices" };
+    res.json(error);
+  }
 });
 
 app.delete("/device/:id", async (req, res) => {
