@@ -27,7 +27,7 @@ const GatewayButton: React.FC<{ gateway: Gateway }> = ({ gateway }) => {
       ) : (
         Object.keys(details).length > 0 && (
           <>
-            <li className="relative flex flex-col items-start p-2 my-2 border rounded-lg border-warning">
+            <li className="relative flex flex-col items-start w-full p-2 my-2 border rounded-lg border-warning">
               <button
                 onClick={() => setShowDetails(false)}
                 className="absolute top-0 right-0 px-2 translate-x-1/2 -translate-y-1/2 border rounded-md border-alert text-alert hover:text-dark hover:bg-alert bg-dark"
@@ -41,7 +41,7 @@ const GatewayButton: React.FC<{ gateway: Gateway }> = ({ gateway }) => {
                 {showRaw ? "Hide Raw" : "Raw"}
               </button>
               {showRaw ? (
-                <pre className="p-2 mx-auto overflow-x-auto text-xs text-left text-light bg-opacity-30 bg-primary">
+                <pre className="w-full p-2 mx-auto overflow-x-auto text-xs text-left text-light bg-opacity-30 bg-primary">
                   {JSON.stringify(details, null, 2)}
                 </pre>
               ) : (
