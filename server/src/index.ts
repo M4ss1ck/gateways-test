@@ -24,13 +24,13 @@ app.get("/gateway/list", async (req, res) => {
 
 app.get("/gateway/:id", async (req, res) => {
   const { id } = req.params;
-  const gates = await prisma.gateway
+  const gateway = await prisma.gateway
     .findUnique({
       where: { id: id },
       include: { peripherals: true },
     })
     .catch((e) => console.error(e));
-  res.json(gates);
+  res.json(gateway);
 });
 
 app.post("/gateway/new", async (req, res) => {
@@ -41,7 +41,7 @@ app.post("/gateway/new", async (req, res) => {
       /^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/
     )
   ) {
-    const gateways =
+    const gateway =
       peripherals?.length > 0 && peripherals.length <= 10
         ? await prisma.gateway
             .create({
@@ -75,7 +75,7 @@ app.post("/gateway/new", async (req, res) => {
             })
             .catch((e) => console.log(e))
         : { error: "Too many peripheral devices" };
-    res.json(gateways);
+    res.json(gateway);
   } else {
     const error = { error: "Invalid IP address" };
     res.json(error);
