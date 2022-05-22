@@ -18,8 +18,8 @@ model Gateway {
 }
 
 model Peripheral {
-  id          String   @id @default(auto()) @map("_id") @db.ObjectId
-  uid         Int      @unique
+  // id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  uid         Int      @id @map("_id")
   vendor      String
   dateCreated DateTime @default(now())
   status      String // online-offline
