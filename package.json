@@ -9,7 +9,8 @@
     "prepare": "cd server && pnpm i && cd ../frontend && pnpm i && cd ../",
     "dev": "concurrently \"pnpm backend\" \"pnpm frontend\"",
     "build": "concurrently \"cd server && pnpm build\" \"cd frontend && pnpm build\"",
-    "start": "concurrently \"cd server && pnpm start\" \"cd frontend && pnpm preview\""
+    "start": "concurrently \"cd server && pnpm start\" \"cd frontend && pnpm preview\"",
+    "test": "cd server && pnpm test"
   },
   "keywords": [],
   "author": "Massick",
