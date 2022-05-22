@@ -31,7 +31,7 @@ const App = () => {
       <ul className="flex flex-col items-center justify-start w-full my-2">
         {gateways &&
           (Object.keys(gateways).length === 0 ? (
-            <p>No results</p>
+            <p className="text-alert">No results</p>
           ) : (
             Object.entries(gateways).map(([name, gateway]) => (
               <GatewayButton gateway={gateway} key={gateway.id} />

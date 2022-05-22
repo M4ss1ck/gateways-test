@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import DeviceNew from "./DeviceNew";
+import React, { useState, useEffect } from "react";
 
 const DeviceList: React.FC<{ peripherals: Peripheral[]; id: string }> = ({
   peripherals,
@@ -11,14 +10,20 @@ const DeviceList: React.FC<{ peripherals: Peripheral[]; id: string }> = ({
   const [vendor, setVendor] = useState("");
   const [status, setStatus] = useState<"online" | "offline">("offline");
 
+  // useEffect(() => setPeripherals(peripheralList), [peripheralList]);
+
   const removePeripheral = async (id: string) => {
     const url = `http://localhost:3001/device/${id}`;
     const options = {
       method: "DELETE",
     };
     const response = await fetch(url, options);
-    const result = await response.json();
-    console.log(result);
+    const peripherals = await response.json();
+    if (!peripherals.error) {
+      setPeripherals(peripherals);
+    } else {
+      console.log(peripherals.error);
+    }
   };
 
   const addPeripheral = async (peripheral: Peripheral) => {
@@ -34,6 +39,7 @@ const DeviceList: React.FC<{ peripherals: Peripheral[]; id: string }> = ({
     const result = await response.json();
     console.log(result);
     setPeripherals(result.peripherals);
+    setNewDevice(!newDevice);
   };
 
   const handleNewPeripheral = async () => {
@@ -55,9 +61,9 @@ const DeviceList: React.FC<{ peripherals: Peripheral[]; id: string }> = ({
   return (
     <div className="w-full">
       <small className="px-2 mx-auto text-center">Peripheral devices:</small>
-      {peripherals.length > 0 && (
+      {peripheralList?.length > 0 && (
         <ol className="px-2 mx-auto">
-          {peripherals.map((peripheral) => (
+          {peripheralList.map((peripheral) => (
             <li
               key={peripheral.id}
               className="flex flex-row flex-wrap items-center"
