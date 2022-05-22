@@ -20,7 +20,7 @@ const App = () => {
   };
 
   return (
-    <main className="container flex flex-col items-center justify-start min-h-screen max-w-prose bg-dark text-light">
+    <main className="container flex flex-col items-center justify-start w-5/6 min-h-screen bg-dark text-light sm:w-80">
       <h1 className="mt-8 text-xl font-bold text-primary">Add gateway</h1>
       <GatewayForm />
       <h1 className="mt-2 text-xl font-bold text-primary">List</h1>
@@ -36,9 +36,9 @@ const App = () => {
           ))}
         <button
           onClick={getGateways}
-          className="p-2 mx-auto border rounded-lg border-warning hover:bg-warning hover:text-primary"
+          className="w-full p-2 mx-auto border rounded-lg border-warning hover:bg-warning hover:text-primary"
         >
-          Refresh list
+          ✨ Refresh list ✨
         </button>
       </ul>
     </main>

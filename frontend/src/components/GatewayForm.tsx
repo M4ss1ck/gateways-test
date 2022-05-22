@@ -35,14 +35,14 @@ const GatewayForm = () => {
   return (
     <>
       <form
-        className="relative flex flex-col items-center py-2 my-2 text-center border rounded-lg border-warning justify-evenly"
+        className="relative flex flex-col items-center w-full py-2 my-2 text-center border rounded-lg border-warning justify-evenly"
         onSubmit={handleNewGateway}
       >
         <input
           id="name"
           type="text"
           placeholder="Name"
-          className="px-1 mx-4 text-center border-b bg-dark border-b-warning"
+          className="w-4/5 px-1 mx-4 text-center border-b bg-dark border-b-warning"
           onChange={(e) => setName(e.target.value)}
           value={name}
         />
@@ -50,27 +50,27 @@ const GatewayForm = () => {
           id="ip"
           type="text"
           placeholder="IP"
-          className="px-1 my-4 text-center border-b bg-dark border-b-warning"
+          className="w-4/5 my-4 text-center border-b bg-dark border-b-warning"
           onChange={(e) => setIp(e.target.value)}
           value={ip}
         />
         <button
           type="button"
-          className="p-2 my-2 border rounded-lg border-warning hover:bg-warning hover:text-primary"
+          className="w-4/5 p-2 my-2 border rounded-lg border-warning hover:bg-warning hover:text-primary"
           onClick={() => setNewDevice(!newDevice)}
         >
-          Add device
+          {newDevice ? "Hide" : "Add device"}
         </button>
         <button
           type="submit"
-          className="p-2 border rounded-lg border-warning hover:bg-warning hover:text-primary"
+          className="w-4/5 p-2 border rounded-lg border-warning hover:bg-warning hover:text-primary"
         >
           Submit
         </button>
       </form>
       {data.error && <p className="text-alert">{data.error}</p>}
       {peripherals.length > 0 && (
-        <ol className="text-center">
+        <ol className="w-4/5 p-2 text-left">
           <li>Peripheral list:</li>
           {peripherals.map((peripheral) => (
             <li key={peripheral.uid}>

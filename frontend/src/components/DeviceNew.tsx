@@ -23,13 +23,13 @@ const DeviceNew: React.FC<{
     setStatus("offline");
   };
   return (
-    <div className="flex flex-col items-center p-2 mx-4 my-2 text-center border rounded-lg border-warning justify-evenly">
+    <div className="flex flex-col items-center w-full p-2 mx-4 my-2 text-center border rounded-lg border-warning justify-evenly">
       <h3>Add peripheral device</h3>
       <input
         id="uid"
         type="number"
         placeholder="UID"
-        className="px-1 my-4 text-center border-b bg-dark border-b-warning"
+        className="w-4/5 px-1 my-4 text-center border-b bg-dark border-b-warning"
         onChange={(e) => setUid(e.target.value)}
         value={uid}
       />
@@ -37,7 +37,7 @@ const DeviceNew: React.FC<{
         id="vendor"
         type="text"
         placeholder="Vendor"
-        className="px-1 my-4 text-center border-b bg-dark border-b-warning"
+        className="w-4/5 px-1 my-4 text-center border-b bg-dark border-b-warning"
         onChange={(e) => setVendor(e.target.value)}
         value={vendor}
       />
