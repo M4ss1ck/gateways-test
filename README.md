@@ -22,6 +22,10 @@ It was created using Node.js, Express.js, Prisma and a MongoDB database.
 - `POST /device/new`: receives a JSON with the `{ uid, vendor, dateCreated, status, id }` variables, where `id` is the Gateway's id, and creates a new peripheral device. It validates the ip address and make sure that there are no more than 10 peripheral devices per gateway.
 - `DELETE /device/:id`: receives an `id` and deletes the associated peripheral device. It returns the other peripherals of the gateway.
 
+## Tests
+
+You can run the tests with `pnpm test`.
+
 # Frontend
 
 It was created using React.js, TypeScript, Tailwind CSS and Vite. It's a single column layout, with a form to add new gateways on top and a gateway names list below. When a gateway name is clicked, it shows all the info for that specific gateway, including peripherals. Then you can add or remove peripherals from the gateway using buttons.
