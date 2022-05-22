@@ -10,8 +10,6 @@ const DeviceList: React.FC<{ peripherals: Peripheral[]; id: string }> = ({
   const [vendor, setVendor] = useState("");
   const [status, setStatus] = useState<"online" | "offline">("offline");
 
-  // useEffect(() => setPeripherals(peripheralList), [peripheralList]);
-
   const removePeripheral = async (id: string) => {
     const url = `http://localhost:3001/device/${id}`;
     const options = {
@@ -36,9 +34,8 @@ const DeviceList: React.FC<{ peripherals: Peripheral[]; id: string }> = ({
       body: JSON.stringify({ ...peripheral, id: id }),
     };
     const response = await fetch(url, options);
-    const result = await response.json();
-    console.log(result);
-    setPeripherals(result.peripherals);
+    const peripherals = await response.json();
+    setPeripherals(peripherals);
     setNewDevice(!newDevice);
   };
 
@@ -52,10 +49,10 @@ const DeviceList: React.FC<{ peripherals: Peripheral[]; id: string }> = ({
       dateCreated: date,
     } as Peripheral;
     console.log("agregando nuevo dispositivo");
-    await addPeripheral(device);
     setUid("");
     setVendor("");
     setStatus("offline");
+    await addPeripheral(device);
   };
 
   return (

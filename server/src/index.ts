@@ -88,16 +88,26 @@ app.post("/device/new", async (req, res) => {
     },
   });
   if (count < 10) {
-    const peripheral = await prisma.peripheral.create({
-      data: {
-        uid: uid,
-        vendor: vendor,
-        dateCreated: dateCreated,
-        status: status,
-        gateway: { connect: { id: id } },
-      },
+    const peripheral = await prisma.peripheral
+      .create({
+        data: {
+          uid: uid,
+          vendor: vendor,
+          dateCreated: dateCreated,
+          status: status,
+          gateway: { connect: { id: id } },
+        },
+      })
+      .catch((e) => console.log(e));
+    const parentGateway = await prisma.gateway.findUnique({
+      where: { id: id },
+      include: { peripherals: true },
     });
-    res.json(peripheral);
+    if (parentGateway?.peripherals) {
+      res.json(parentGateway?.peripherals);
+    } else {
+      res.json({ error: "No peripherals found" });
+    }
   } else {
     const error = { error: "Too many peripheral devices" };
     res.json(error);
